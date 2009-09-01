@@ -1,6 +1,54 @@
 = urban-mapping-api
 
-Description goes here.
+A simple ruby interface to Urban Mapping's free and premium neighborhood lookup API.
+
+== Installation
+
+  sudo gem install michaeldwan-urban-mapping-api
+  
+Gem dependencies:
+
+* curb
+* json
+
+I know, curb sucks. I will move to HTTParty at some point.
+
+== Examples
+
+To get started you need to require 'urban-mapping-api':
+
+  % irb -rubygems
+  irb(main):001:0> require 'urban-mapping-api'
+  # => true
+
+Before you do anything, create an instance of UrbanMapping::Interface
+
+  interface = UrbanMapping::Interface.new('my-api-key')
+  
+For premium API access, include the premium API key
+
+  interface = UrbanMapping::Interface.new('my-api-key', 'my-shared-secred')
+  interface.premium_api? 
+  #=> true
+
+(If you don't have an api key, go get one at http://developer.urbanmapping.com/accounts/register/)
+
+Now that you have an instance of the interface, you can make calls to the service
+
+  interface.getNeighborhoodsByPostalCode('60654')
+  # => [{"name"=>"River North", "city"=>"Chicago", "country"=>"USA", "id"=>3320072, "state"=>"IL"}, ...]
+  
+  interface.getNeighborhoodsByLatLng(41.882088, -87.624454)
+  # => [{"name"=>"The Loop", "city"=>"Chicago", "country"=>"USA", "id"=>3094847, "state"=>"IL"}]
+
+  interface.getNeighborhoodDetail(3094847)
+  # => {"wkt_centroid"=>"POINT(-87.6260772332496 41.8782770670931)", "name"=>"The Loop", "city"=>"Chicago"...
+  
+== Helpful Links
+
+* Urban Mapping http://www.urbanmapping.com/urbanware/neighborhood-database/index.html
+* Api Documentation http://developer.urbanmapping.com/docs/neighborhoods
+* Register for a free API key http://developer.urbanmapping.com/accounts/register
 
 == Note on Patches/Pull Requests
  

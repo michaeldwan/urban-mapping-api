@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "urban-mapping-api"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = "A simple ruby interface to Urban Mapping's free and premium neighborhood lookup API"
+    gem.description = "A simple ruby interface to Urban Mapping's free and premium neighborhood lookup API"
     gem.email = "mpdwan@gmail.com"
     gem.homepage = "http://github.com/michaeldwan/urban-mapping-api"
     gem.authors = ["Michael Dwan"]
