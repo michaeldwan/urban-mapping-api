@@ -11,8 +11,6 @@ Gem dependencies:
 * curb
 * json
 
-I know, curb sucks. I will move to HTTParty at some point.
-
 == Examples
 
 To get started you need to require 'urban-mapping-api':
@@ -46,6 +44,7 @@ Now that you have an instance of the interface, you can make calls to the servic
   
 == Helpful Links
 
+* urban-mapping-api Gem documentation http://rdoc.info/projects/michaeldwan/urban-mapping-api
 * Urban Mapping http://www.urbanmapping.com/urbanware/neighborhood-database/index.html
 * Api Documentation http://developer.urbanmapping.com/docs/neighborhoods
 * Register for a free API key http://developer.urbanmapping.com/accounts/register
