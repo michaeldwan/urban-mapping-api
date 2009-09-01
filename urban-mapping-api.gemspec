@@ -25,7 +25,8 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/urban-mapping-api.rb",
      "test/test_helper.rb",
-     "test/urban-mapping-api_test.rb"
+     "test/urban-mapping-api_test.rb",
+     "urban-mapping-api.gemspec"
   ]
   s.homepage = %q{http://github.com/michaeldwan/urban-mapping-api}
   s.rdoc_options = ["--charset=UTF-8"]
