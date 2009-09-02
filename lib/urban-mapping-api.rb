@@ -30,23 +30,22 @@ module UrbanMapping
       !shared_secret.nil?
     end
     
-    
     # Returns a list of neighborhoods whose boundaries contain the requested 
     # latitude and longitude.
-    def getNeighborhoodsByLatLng(latitude, longitude)
+    def get_neighborhoods_by_lat_lng(latitude, longitude)
       perform('getNeighborhoodsByLatLng', :lat => latitude, :lng => longitude)
     end
 
     # Returns the neighborhood whose centroid is nearest to the requested 
     # latitude and longitude within a 20 linear mile range.
-    def getNearestNeighborhood(latitude, longitude)
+    def get_nearest_neighborhood(latitude, longitude)
       perform('getNearestNeighborhood', :lat => latitude, :lng => longitude)
     end
     
     # Returns a list of neighborhoods within a bounding box extent defined by 
     # southwestern and northeastern corners. Note query extents covering more 
     # than 45 square miles will be rejected.
-    def getNeighborhoodsByExtent(southwest_latitude, southwest_longitude, northeast_latitude, northeast_longitude)
+    def get_neighborhoods_by_extent(southwest_latitude, southwest_longitude, northeast_latitude, northeast_longitude)
       perform('getNeighborhoodsByExtent', :swlat => southwest_latitude, 
                                           :swlng => southwest_longitude,
                                           :nelat => northeast_latitude,
@@ -57,7 +56,7 @@ module UrbanMapping
     # and lists neighborhoods containing the point in a single response. 
     # This is technically executed in a single request, but for the purposes 
     # of account administration a single invocation is counted as two calls.
-    def getNeighborhoodsByAddress(street, city, state, country = nil)
+    def get_neighborhoods_by_address(street, city, state, country = nil)
       perform('getNeighborhoodsByAddress', :street => street,
                                            :city => city,
                                            :state => state,
@@ -65,29 +64,29 @@ module UrbanMapping
     end
     
     # Returns a list of neighborhood for the requested city.
-    def getNeighborhoodsByCityStateCountry(city, state, country = nil)
+    def get_neighborhoods_by_city_state_country(city, state, country = nil)
       perform('getNeighborhoodsByCityStateCountry', :city => city,
                                                     :state => state,
                                                     :country => country)
     end
 
     # Returns a list of neighborhoods whose areas intersect that of the requested postal code.
-    def getNeighborhoodsByPostalCode(postal_code)
+    def get_neighborhoods_by_postal_code(postal_code)
       perform('getNeighborhoodsByPostalCode', :postalCode => postal_code)
     end
     
     # Returns a list of neighborhoods for the requested neighborhood name.
-    def getNeighborhoodsByName(name)
+    def get_neighborhoods_by_name(name)
       perform('getNeighborhoodsByName', :name => name)
     end
     
     # Returns neighborhood details for the requested neighborhood ID.
-    def getNeighborhoodDetail(id)
+    def get_neighborhood_detail(id)
       perform('getNeighborhoodDetail', :neighborhoodId => id)
     end
     
     # Returns neighborhood relationship attributes for the requested neighborhood ID.
-    def getNeighborhoodRelationships(id)
+    def get_neighborhood_relationships(id)
       perform('getNeighborhoodRelationships', :neighborhoodId => id)
     end
 

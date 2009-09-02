@@ -27,19 +27,19 @@ For premium API access, include the premium API key
 
   interface = UrbanMapping::Interface.new('my-api-key', 'my-shared-secred')
   interface.premium_api? 
-  #=> true
+  # => true
 
 (If you don't have an api key, go get one at http://developer.urbanmapping.com/accounts/register/)
 
 Now that you have an instance of the interface, you can make calls to the service
 
-  interface.getNeighborhoodsByPostalCode('60654')
+  interface.get_neighborhoods_by_postal_code('60654')
   # => [{"name"=>"River North", "city"=>"Chicago", "country"=>"USA", "id"=>3320072, "state"=>"IL"}, ...]
   
-  interface.getNeighborhoodsByLatLng(41.882088, -87.624454)
+  interface.get_neighborhoods_by_lat_lng(41.882088, -87.624454)
   # => [{"name"=>"The Loop", "city"=>"Chicago", "country"=>"USA", "id"=>3094847, "state"=>"IL"}]
 
-  interface.getNeighborhoodDetail(3094847)
+  interface.get_neighborhood_detail(3094847)
   # => {"wkt_centroid"=>"POINT(-87.6260772332496 41.8782770670931)", "name"=>"The Loop", "city"=>"Chicago"...
   
 == Helpful Links
