@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{urban-mapping-api}
-  s.version = "0.9.2"
+  s.version = "0.9.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Dwan"]
-  s.date = %q{2009-09-02}
+  s.date = %q{2009-09-03}
   s.description = %q{A simple ruby interface to Urban Mapping's free and premium neighborhood lookup API}
   s.email = %q{mpdwan@gmail.com}
   s.extra_rdoc_files = [
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "lib/core_ext.rb",
      "lib/urban-mapping-api.rb",
      "test/test_helper.rb",
      "test/urban-mapping-api_test.rb",
