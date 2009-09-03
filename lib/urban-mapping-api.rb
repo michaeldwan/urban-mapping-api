@@ -1,6 +1,9 @@
 require 'curl'
 require 'json'
 require 'digest'
+require 'ostruct'
+require 'uri'
+require "#{File.dirname(__FILE__)}/core_ext"
 
 module UrbanMapping
   class RequestError < StandardError
@@ -15,14 +18,18 @@ module UrbanMapping
   class Interface
     ENDPOINT = 'http://api1.urbanmapping.com/neighborhoods/rest'
 
-    attr_reader :api_key, :shared_secret
+    attr_reader :api_key, :shared_secret, :options
     
     # Create a new instance.
     # Requeres an api_key. A shared key needs to be provided for 
     # access to premium API methods.
-    def initialize(api_key, shared_secret = nil)
+    def initialize(api_key, options = {})
+      options = {
+        :raw => false
+      }.merge(options)
       @api_key = api_key
-      @shared_secret = shared_secret
+      @shared_secret = options.delete(:shared_secret)
+      @options = options
     end
     
     # Returns true if a shard_secret was provided to the constructor.
@@ -56,7 +63,7 @@ module UrbanMapping
     # and lists neighborhoods containing the point in a single response. 
     # This is technically executed in a single request, but for the purposes 
     # of account administration a single invocation is counted as two calls.
-    def get_neighborhoods_by_address(street, city, state, country = nil)
+    def get_neighborhoods_by_address(street, city, state, country = 'USA')
       perform('getNeighborhoodsByAddress', :street => street,
                                            :city => city,
                                            :state => state,
@@ -64,7 +71,7 @@ module UrbanMapping
     end
     
     # Returns a list of neighborhood for the requested city.
-    def get_neighborhoods_by_city_state_country(city, state, country = nil)
+    def get_neighborhoods_by_city_state_country(city, state, country = 'USA')
       perform('getNeighborhoodsByCityStateCountry', :city => city,
                                                     :state => state,
                                                     :country => country)
@@ -98,11 +105,11 @@ module UrbanMapping
       def perform(method, parameters)
         parameters.merge!({
           :format => 'json',
-          :apikey => api_key,
+          :apikey => api_key
         })
         parameters.merge!(:sig => generate_signature) if premium_api?
-
-        query_string = parameters.to_a.map{|x| x.join('=')}.join('&')
+        
+        query_string = parameters.to_a.map{ |x| x.map{|val| URI.encode(val.to_s)}.join('=') }.join('&')
 
         url = "#{ENDPOINT}/#{method}?#{query_string}"
         response = Curl::Easy.perform(url)
@@ -110,8 +117,12 @@ module UrbanMapping
         if response.response_code != 200
           raise RequestError.new(response.response_code, url, response.body_str)
         end
+        
+        output = JSON.parse(response.body_str)
+        
+        return output if options[:raw]
 
-        JSON.parse(response.body_str)
+        output.to_openstruct
       rescue StandardError => ex
         raise "An error occured while calling #{url}: #{ex.message}\n#{ex.backtrace}"
       end

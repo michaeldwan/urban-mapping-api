@@ -25,13 +25,31 @@ Before you do anything, create an instance of UrbanMapping::Interface
   
 For premium API access, include the premium API key
 
-  interface = UrbanMapping::Interface.new('my-api-key', 'my-shared-secred')
+  interface = UrbanMapping::Interface.new('my-api-key', :shared_secret => 'my-shared-secred')
   interface.premium_api? 
   # => true
+  
+The default return value of all methods is an OpenStruct or array of OpenStructs.
+
+  interface = UrbanMapping::Interface.new('my-api-key')
+  hood = interface.get_neighborhood_detail(3094847)
+  hood
+  # => #<OpenStruct city="Chicago", name="The Loop", state="IL", ...>
+  hood.city
+  # => "Chicago"
+
+If you want the raw hash output, pass :raw => true to the constructor
+
+  interface = UrbanMapping::Interface.new('my-api-key', :shared_secret => 'my-shared-secred', :raw => true)
+  hood = interface.get_neighborhood_detail(3094847)
+  hood
+  # => {"wkt_centroid"=>"POINT(-87.6260772332496 41.8782770670931)", "name"=>"The Loop", "city"=>"Chicago"...
+  hood.city
+  # => "Chicago"
 
 (If you don't have an api key, go get one at http://developer.urbanmapping.com/accounts/register/)
 
-Now that you have an instance of the interface, you can make calls to the service
+Now that you have an instance of the interface, you can make calls to the service. (The below examples are using raw output.)
 
   interface.get_neighborhoods_by_postal_code('60654')
   # => [{"name"=>"River North", "city"=>"Chicago", "country"=>"USA", "id"=>3320072, "state"=>"IL"}, ...]
