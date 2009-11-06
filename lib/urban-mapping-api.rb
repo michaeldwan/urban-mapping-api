@@ -15,6 +15,12 @@ module UrbanMapping
     end
   end
   
+  class NeighborhoodOpenStruct < OpenStruct
+    def id
+      @table[:id] || super
+    end
+  end
+  
   class Interface
     ENDPOINT = 'http://api1.urbanmapping.com/neighborhoods/rest'
 
