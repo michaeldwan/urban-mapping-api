@@ -24,7 +24,7 @@ module UrbanMapping
   class Interface
     ENDPOINT = 'http://api1.urbanmapping.com/neighborhoods/rest'
 
-    attr_reader :api_key, :shared_secret, :options3
+    attr_reader :api_key, :shared_secret, :options
     
     # Create a new instance.
     # Requeres an api_key. A shared key needs to be provided for 
@@ -126,7 +126,7 @@ module UrbanMapping
         
         output = JSON.parse(response.body_str)
         
-        return output if parameters[:raw]
+        return output if options[:raw]
 
         output.to_openstruct
       rescue StandardError => ex
